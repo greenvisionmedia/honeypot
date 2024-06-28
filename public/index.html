@@ -164,8 +164,7 @@
         emailTooltip = document.getElementById('email-tooltip'),
         emailRequiredTooltip = document.getElementById('email-required-tooltip'),
         nameRequiredTooltip = document.getElementById('name-required-tooltip'),
-        endPoint = contactForm.action,
-        formData = new FormData(contactForm);
+        endPoint = contactForm.action;
 
     if (contactForm) {
         submit.addEventListener('click', (event) => {
@@ -199,6 +198,9 @@
     }
 
     async function submitForm() {
+    
+        formData = new FormData(contactForm)
+
         try {
             const response = await fetch(endPoint, {
                 method: 'POST',
@@ -229,6 +231,7 @@
 
         return 'valid';
     }
+    
     </script>
 </body>
 </html>
