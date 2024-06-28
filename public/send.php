@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 $dir_sender = 'greenvisionmedia.net';
 
 //set security globals
-$error_file = '/errors.csv';
+$error_file = './errors.csv';
 $ipAddress = $_SERVER['REMOTE_ADDR'];
 $referrer = $_SERVER['HTTP_REFERER'];
 $userAgent = $_SERVER['HTTP_USER_AGENT'];
@@ -88,8 +88,7 @@ function something_went_south($error, $error_log, $error_file)
 }
 
 // set safe state or redirect
-// if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($referrer, $dir_sender) !== false) {
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($referrer, $dir_sender) !== false) {
     //sanitize text fields and validate email
 
     // HONEYPOT TEST
