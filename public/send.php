@@ -5,16 +5,6 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-/**
- * Check if a honeypot field was filled on the form
- * By checking on the $_REQUEST for the given field names
- * in the $honeypot_fields. The field names passed on this
- * var must be empty on the REQUEST.
- * 
- * @param $req {Array} must receive $_REQUEST superglobal
- * @return {Boolean} tells if the honeypot catched something
- */
-
 $dir_sender = 'greenvisionmedia.net';
 
 //set security globals
@@ -101,6 +91,13 @@ function something_went_south($error, $error_log, $error_file)
 // if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($referrer, $dir_sender) !== false) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //sanitize text fields and validate email
+
+    // HONEYPOT TEST
+    if ($_POST["name"] || $_POST["email"]) {
+        mail($to, 'Honeypot failure!', 'I cant get error logging to work, so this email happens when a bot is detected', $headers);
+        return true;
+    }
+
     foreach ($_POST as $key => $value) {
         if (strpos($key, '[]') === false) {
             $_POST[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
@@ -119,9 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // $org = $_POST["org"];
     $name = $_POST["nobbame"];
-    // $phone = $_POST["phone"];
     $message = $_POST["message"];
     $from = 'info@greenvision.media';
     $to = 'login@greenvision.media';
@@ -137,8 +132,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email_message .= "Here is what we got:\n";
     $email_message .= "      Email: $email\n";
     $email_message .= "      Name: $name\n";
-    // $email_message .= "      Org: $org\n";
-    // $email_message .= "      Phone: $phone\n";
     $email_message .= "      Message: $message\n";
     $email_message .= "\n\n";
 
@@ -147,11 +140,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $error = 'Unable to send email';
         something_went_south($error, $error_log, $error_file);
-    }
-
-    // HONEYPOT TEST
-    if ($_POST["name"] || $_POST["email"]) {
-        mail($to, 'Honeypot failure!', 'I cant get error logging to work, so this email happens when a bot is detected', $headers);
     }
 
 } else {

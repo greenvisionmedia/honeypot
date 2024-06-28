@@ -67,7 +67,7 @@
 
     <!-- THE FORM ITSELF -->
     
-    <form id="contact-form">
+    <form id="contact-form" method="POST" action="./send.php">
                         <!-- enë me mjaltë -->
                         <fieldset class="mjalte">
                             <label for="name"></label>
@@ -165,7 +165,7 @@
         emailTooltip = document.getElementById('email-tooltip'),
         emailRequiredTooltip = document.getElementById('email-required-tooltip'),
         nameRequiredTooltip = document.getElementById('name-required-tooltip'),
-        endPoint = './send.php',
+        endPoint = contactForm.action,
         formData = new FormData(contactForm);
 
     if (contactForm) {
