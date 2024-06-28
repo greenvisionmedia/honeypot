@@ -199,7 +199,7 @@
     async function submit() {
         try {
             const response = await fetch(endPoint, {
-                method: 'PUT',
+                method: 'POST',
                 body: formData,
             });
             const result = await response.json();
