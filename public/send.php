@@ -14,47 +14,11 @@ error_reporting(E_ALL);
  * @param $req {Array} must receive $_REQUEST superglobal
  * @return {Boolean} tells if the honeypot catched something
  */
-function honeypot_validade($req)
-{
 
-    if (!empty($req)) {
-
-        $honeypot_fields = [
-            "name",
-            "email"
-        ];
-
-        foreach ($honeypot_fields as $field) {
-            if (isset($req[$field]) && !empty($req[$field])) {
-                return false;
-            }
-        }
-    }
-
-    return true;
-}
-
-if (honeypot_validade($_REQUEST)) {
-    // The honeypot fields are clean, go on
-    $is_spammer = false;
-} else {
-    // A spammer filled a honeypot field
-    $is_spammer = true;
-}
-
-// 2024-01-16-pm
-$script_version = 'Dev 1.02';
-$current_directory = getcwd();
-
-$dir_errors = '/home/customer/www/tools.greenvision.media/public_html/honeypot/';
-$dir_sender = 'greenvision.media';
-
-//rem this in LIVE
-//$form_address = 'https://greenvision.media/snail/form.html';
-
+$dir_sender = 'greenvisionmedia.net';
 
 //set security globals
-$error_file = $dir_errors . '/errors.csv';
+$error_file = '/errors.csv';
 $ipAddress = $_SERVER['REMOTE_ADDR'];
 $referrer = $_SERVER['HTTP_REFERER'];
 $userAgent = $_SERVER['HTTP_USER_AGENT'];
@@ -176,7 +140,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($referrer, $dir_sender) !== 
     // $email_message .= "      Phone: $phone\n";
     $email_message .= "      Message: $message\n";
     $email_message .= "\n\n";
-    $email_message .= "Please check the error log occasionally at $dir_errors....\n";
 
     // Send email
     if (mail($to, $subject, $email_message, $headers)) {
