@@ -163,7 +163,8 @@
         emailRequiredTooltip = document.getElementById('email-required-tooltip'),
         nameRequiredTooltip = document.getElementById('name-required-tooltip'),
         // formData = new FormData(form),
-        endPoint = '/send.php';
+        endPoint = '/send.php',
+        formData = new FormData(contactForm);
 
     if (contactForm) {
         contactForm.addEventListener('submit', (event) => {
