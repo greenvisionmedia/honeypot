@@ -54,13 +54,12 @@
 
     <div class="container">
         <h2>PHP HONEYPOT EXAMPLE</h2>
-        <p>Very simple honeypot example</p>
-        <p>This html structure is for demonstration only</p>
-        <p>Please read 
+        <p>Very simple honeypot example. Works like a normal contact form, but visible fields are made unrecognizable to bots. If a bot enters values into the hidden honeypot fields, you'll get a different email (or nothing at all, in production)</p>
+        <p>AJAX version of this guy's 
             <a href="https://dev.to/felipperegazio/how-to-create-a-simple-honeypot-to-protect-your-web-forms-from-spammers--25n8" target="_blank">
-            THIS POST 
-            </a>
-            to a better understanding of what is going on.
+                project
+            </a>. Repo: <a href="https://github.com/greenvisionmedia/honeypot" target="_blank">
+            </a>. 
         </p>
         
         <br /><hr/><br/>
@@ -69,7 +68,7 @@
     
     <form id="contact-form" method="POST" action="./send.php">
                         <!-- custom recipient -->
-                         <label>Response will be sent to this email:</label>
+                        <label>Response will be sent to this email:</label>
                         <input id="recipient" name="recipient" type="email"></input>
                         <!-- enë me mjaltë -->
                         <fieldset class="mjalte">
