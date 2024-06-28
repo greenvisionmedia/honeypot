@@ -132,16 +132,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($referrer, $dir_sender) !== 
 
     $hp_name = $_POST['name'];
     $hp_email = $_POST['email'];
+    $is_spammer = false;
+    $mail_success = false;
 
     // Honeypot test
 
     if (!empty($hp_name) || !empty($req[$hp_email])) {
-        mail($to, 'Honeypot failure!', $email_message, $headers);
+        mail($to, 'Honeypot failure!', 'Fly in the pot...', $headers);
+        $is_spammer = true;
     }
 
     // Send email
-    if (mail($to, $subject, $email_message, $headers)) {
-    } else {
+    if (!$is_spammer) {
+        mail($to, $subject, $email_message, $headers);
+        $mail_success = true;
+    }
+
+    if ($mail_success) {
         $error = 'Unable to send email';
         something_went_south($error, $error_log, $error_file);
     }
