@@ -128,6 +128,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($referrer, $dir_sender) !== 
     $email_message .= "      Message: $message\n";
     $email_message .= "\n\n";
 
+    // Recipient entry
+
+    if (!empty($_POST['recipient'])) {
+        $to = $_POST['recipient'];
+    }
+
     // Honeypot vars
 
     $hp_name = $_POST['name'];

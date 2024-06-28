@@ -68,6 +68,9 @@
     <!-- THE FORM ITSELF -->
     
     <form id="contact-form" method="POST" action="./send.php">
+                        <!-- custom recipient -->
+                         <label>Response will be sent to this email:</label>
+                        <input id="recipient" name="recipient" type="email"><input>
                         <!-- enë me mjaltë -->
                         <fieldset class="mjalte">
                             <label for="name"></label>
@@ -146,7 +149,7 @@
         });
     
         fillInputs = (type, value) => {
-            document.querySelectorAll([`[type="${type}"]:not(#emobbail)`]).forEach(input => {
+            document.querySelectorAll([`[type="${type}"]:not(#emobbail, #recipient)`]).forEach(input => {
                 input.value = value;
             });
         }
@@ -161,6 +164,7 @@
     const contactForm = document.getElementById('contact-form'),
     submit = document.getElementById('submit'),
         email = document.getElementById('emobbail'),
+        recipient = document.getElementById('recipient'),
         name = document.getElementById('nobbame'),
         emailTooltip = document.getElementById('email-tooltip'),
         emailRequiredTooltip = document.getElementById('email-required-tooltip'),
