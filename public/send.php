@@ -54,7 +54,7 @@ $dir_sender = 'greenvision.media';
 
 
 //set security globals
-$error_file = $dir_errors . '/' . errors . '.csv';
+$error_file = $dir_errors . '/errors.csv';
 $ipAddress = $_SERVER['REMOTE_ADDR'];
 $referrer = $_SERVER['HTTP_REFERER'];
 $userAgent = $_SERVER['HTTP_USER_AGENT'];
@@ -142,9 +142,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($referrer, $dir_sender) !== 
         }
     }
 
-    if (isset($_POST['email']) && $_POST['email'] !== '') {
+    if (isset($_POST['emobbail']) && $_POST['emobbail'] !== '') {
 
-        $dirty_email = $_POST['email'];
+        $dirty_email = $_POST['emobbail'];
         $email = filter_var($dirty_email, FILTER_SANITIZE_EMAIL);
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -155,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($referrer, $dir_sender) !== 
     }
 
     // $org = $_POST["org"];
-    // $name = $_POST["name"];
+    $name = $_POST["nobbame"];
     // $phone = $_POST["phone"];
     $message = $_POST["message"];
     $from = 'info@greenvision.media';
