@@ -16,4 +16,4 @@ jobs:
         username: tools@greenvisionmedia.net
         password: ${{secrets.FTP_PASSWORD}}
         server-dir: tools.greenvisionmedia.net/public_html/honeypot/
-        local-dir: /public/
+        local-dir: public/
