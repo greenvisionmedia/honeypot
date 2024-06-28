@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($referrer, $dir_sender) !== 
     $name = $_POST['nobbame'];
     $message = $_POST['message'];
     $from = 'info@greenvision.media';
-    $to = 'login@greenvision.media';
+    $to = 'taj@greenvision.media';
     $cc = 'green.servers.org@gmail.com';
     $subject = "Honeypot testing!";
     $headers = "From: Honeypot test website <" . $from . ">\r\n";
