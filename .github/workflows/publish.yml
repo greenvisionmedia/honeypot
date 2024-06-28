@@ -12,8 +12,8 @@ jobs:
     - name: 📩 Deploy to custom domain
       uses: SamKirkland/FTP-Deploy-Action@4.3.1
       with:
-        server: greenvisionmedia.net  
-        username: publish@greenvisionmedia.net
+        server: tools.greenvisionmedia.net  
+        username: tools@greenvisionmedia.net
         password: ${{secrets.FTP_PASSWORD}}
         server-dir: tools.greenvisionmedia.net/public_html/honeypot/
-        local-dir: /
+        local-dir: /public/
