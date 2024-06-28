@@ -47,7 +47,7 @@ $script_version = 'Dev 1.02';
 $current_directory = getcwd();
 
 $dir_errors = '/home/customer/www/tools.greenvision.media/public_html/honeypot/';
-$dir_sender = 'greenvision.media'
+$dir_sender = 'greenvision.media';
 
 //rem this in LIVE
 //$form_address = 'https://greenvision.media/snail/form.html';

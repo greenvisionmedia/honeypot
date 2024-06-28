@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP Honeypot Example</title>
+    <style>
+        /* required style */
+        .mjalte {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 0;
+            width: 0;
+            z-index: -1;
+        }
+
+        .tooltip {
+            display: inline-flex;
+            position: fixed;
+            opacity: 0;
+            z-index: 100;
+            transition: opacity 200ms;
+            color: white;
+            background-color: black;
+            pointer-events: none;
+            padding: 0.5em;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+        }
+
+        /* aesthetics only */
+        .container {
+            max-width: 1024px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        label, input {
+            display: block;
+            margin-bottom: 16px;
+        }
+        pre {
+            background-color: #f1f1f1; 
+            margin-bottom: 20px; 
+            max-width: 600px; 
+            padding: 12px;
+        }
+    </style>    
+</head>
+<body>
+    <!-- START HTML -->
+
+    <div class="container">
+        <h2>PHP HONEYPOT EXAMPLE</h2>
+        <p>Very simple honeypot example</p>
+        <p>This html structure is for demonstration only</p>
+        <p>Please read 
+            <a href="https://dev.to/felipperegazio/how-to-create-a-simple-honeypot-to-protect-your-web-forms-from-spammers--25n8" target="_blank">
+            THIS POST 
+            </a>
+            to a better understanding of what is going on.
+        </p>
+        
+        <br/><hr/><br/>
+
+    <!-- THE FORM ITSELF -->
+    
+    <form id="contact-form">
+                        <!-- enë me mjaltë -->
+                        <fieldset class="mjalte">
+                            <label for="name"></label>
+                            <input
+                                id="name"
+                                autocomplete="one-time-code"
+                                type="text"
+                                name="name"
+                                placeholder="Your name here"
+                                tabindex="-1" />
+                            <label for="email"></label>
+                            <!-- https://stackoverflow.com/questions/15738259/disabling-chrome-autofill -->
+                            <input
+                                id="email"
+                                autocomplete="one-time-code" 
+                                type="email"
+                                name="email"
+                                placeholder="Your e-mail here"
+                                tabindex="-1" />
+                        </fieldset>
+                        <!-- robbeal fobborm -->
+                        <label id="name-label" for="nobbame"
+                            >Your name:<sup>*</sup></label
+                        >
+                        <fieldset>
+                            <input
+                                id="nobbame"
+                                name="naobbme"
+                                type="text"
+                                aria-required="true"
+                                aria-labelledby="name-label"
+                                maxlength="100" />
+                        </fieldset>
+                        <div class="tooltip is-under" id="name-required-tooltip">
+                            Please enter your name.
+                        </div>
+                        <label id="email-label" for="emobbail"
+                            >Your email:<sup>*</sup></label
+                        >
+                        <fieldset>
+                            <input
+                                id="emobbail"
+                                name="emobbail"
+                                type="text"
+                                aria-required="true"
+                                aria-labelledby="email-label"
+                                maxlength="100" />
+                        </fieldset>
+                        <div class="tooltip is-under" id="email-tooltip">
+                            Please enter a valid email.
+                        </div>
+                        <div class="tooltip" id="email-required-tooltip">
+                            Please enter an email.
+                        </div>
+                        <label for="message">How can I help?</label>
+                        <fieldset>
+                            <textarea id="message" spellcheck="true"></textarea>
+                        </fieldset>
+                        <button type="submit" tabindex="-1" aria-controls="contact-form" form="contact-form">
+                            <a id="submit">
+                                Submit
+                            </a>
+                        </button>
+        
+        <br/><br/><hr/></br>
+    
+    <!-- FILL AS A BOT JS -->
+
+    <script>
+        
+        fillInputs = (type, value) => {
+            document.querySelectorAll([`[type="${type}"]`]).forEach(input => {
+                input.value = value;
+            });
+        }
+
+        botFill = () => {
+            fillInputs('text', 'John Doe');
+            fillInputs('email', 'john@fake.com');
+        }
+    </script>
+
+    <!-- AJAX SUBMISSION -->
+
+     <script>
+        
+    // Form submission
+
+    const contactForm = document.getElementById('contact-form'),
+        email = document.getElementById('emobbail'),
+        name = document.getElementById('nobbame'),
+        emailTooltip = document.getElementById('email-tooltip'),
+        emailRequiredTooltip = document.getElementById('email-required-tooltip'),
+        nameRequiredTooltip = document.getElementById('name-required-tooltip'),
+        // formData = new FormData(form),
+        endPoint = 'hidad';
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            switch (validateForm()) {
+                case 'no-name':
+                    nameRequiredTooltip.style.opacity = '1';
+                    setTimeout(() => {
+                        nameRequiredTooltip.style.opacity = '0';
+                    }, 3000);
+                    break;
+                case 'no-email':
+                    emailRequiredTooltip.style.opacity = '1';
+                    setTimeout(() => {
+                        emailRequiredTooltip.style.opacity = '0';
+                    }, 3000);
+                    break;
+                case 'bad-email':
+                    emailTooltip.style.opacity = '1';
+                    setTimeout(() => {
+                        emailTooltip.style.opacity = '0';
+                    }, 3000);
+                    break;
+                case 'valid':
+                    submit();
+                    break;
+            }
+        });
+    }
+
+    async function submit() {
+        try {
+            const response = await fetch(endPoint, {
+                method: 'PUT',
+                body: formData,
+            });
+            const result = await response.json();
+            console.log('Success:', result);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    function validateForm() {
+        const emailRegex =
+            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
+        if (!name.value) {
+            return 'no-name';
+        }
+
+        if (!email.value) {
+            return 'no-email';
+        }
+
+        if (!emailRegex.test(email.value)) {
+            return 'bad-email';
+        }
+
+        return 'valid';
+    }
+    </script>
+</body>
+</html>
