@@ -150,8 +150,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // HONEYPOT TEST
-    if ($_POST['name'] || $_POST['email']) {
-        mail($to, 'Honeypot failure!', 'I cant get error logging to work, so this email happens when a bot is detected');
+    if ($_POST["name"] || $_POST["email"]) {
+        mail($to, 'Honeypot failure!', 'I cant get error logging to work, so this email happens when a bot is detected', $headers);
     }
 
 } else {
