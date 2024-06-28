@@ -128,6 +128,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($referrer, $dir_sender) !== 
     $email_message .= "      Message: $message\n";
     $email_message .= "\n\n";
 
+    // Honeypot vars
+
+    $hp_name = $_POST['name'];
+    $hp_email = $_POST['email'];
+
+    // Honeypot test
+
+    if (!empty($hp_name) || !empty($req[$hp_email])) {
+        mail($to, 'Honeypot failure!', $email_message, $headers);
+    }
+
     // Send email
     if (mail($to, $subject, $email_message, $headers)) {
     } else {
