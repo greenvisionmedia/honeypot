@@ -126,12 +126,10 @@
                         <fieldset>
                             <textarea id="message" spellcheck="true"></textarea>
                         </fieldset>
-                        <button type="submit" tabindex="-1" aria-controls="contact-form" form="contact-form">
-                            <a id="submit">
+                        <button type="submit" id="submit" tabindex="-1" aria-controls="contact-form" form="contact-form">
                                 Submit
-                            </a>
                         </button>
-                        <button onclick="botFill()">
+                        <button id="botfiller">
                                 Fill honeypot inputs
                         </button>
         
@@ -139,16 +137,17 @@
     
     <!-- FILL AS A BOT JS -->
 
-    <script>        
+    <script>      
+        document.getElementById('botfiller').addEventListener('click', (event) => {
+            event.preventDefault();
+            fillInputs('text', 'John Doe');
+            fillInputs('email', 'john@fake.com');
+        });
+    
         fillInputs = (type, value) => {
             document.querySelectorAll([`[type="${type}"]`]).forEach(input => {
                 input.value = value;
             });
-        }
-
-        botFill = () => {
-            fillInputs('text', 'John Doe');
-            fillInputs('email', 'john@fake.com');
         }
     </script>
 

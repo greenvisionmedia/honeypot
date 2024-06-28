@@ -1,50 +1,6 @@
 
 <?php
 
-// Honeypot code!
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-/**
- * Check if a honeypot field was filled on the form
- * By checking on the $_REQUEST for the given field names
- * in the $honeypot_fields. The field names passed on this
- * var must be empty on the REQUEST.
- * 
- * @param $req {Array} must receive $_REQUEST superglobal
- * @return {Boolean} tells if the honeypot catched something
- */
-function honeypot_validade($req)
-{
-
-    if (!empty($req)) {
-
-        $honeypot_fields = [
-            "name",
-            "email"
-        ];
-
-        foreach ($honeypot_fields as $field) {
-            if (isset($req[$field]) && !empty($req[$field])) {
-                return false;
-            }
-        }
-    }
-
-    return true;
-}
-
-if (honeypot_validade($_REQUEST)) {
-    // The honeypot fields are clean, go on
-    $is_spammer = false;
-} else {
-    // A spammer filled a honeypot field
-    $is_spammer = true;
-    mail('login@greenvision.media', 'Honeypot failure!', 'I cant get error logging to work, so this email happens when a bot is detected');
-}
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
