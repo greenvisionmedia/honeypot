@@ -145,7 +145,7 @@
         });
     
         fillInputs = (type, value) => {
-            document.querySelectorAll([`[type="${type}"]:not(emobbail)`]).forEach(input => {
+            document.querySelectorAll([`[type="${type}"]:not(#emobbail)`]).forEach(input => {
                 input.value = value;
             });
         }
