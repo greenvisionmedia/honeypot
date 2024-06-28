@@ -133,7 +133,7 @@
                         </button>
                         
                         <button>
-                            <a id="botfill" onclick="botfill()">
+                            <a id="botfill" onclick="botFill()">
                                 Fill honeypot inputs
                             </a>
                         </button>
@@ -162,6 +162,7 @@
     // Form submission
 
     const contactForm = document.getElementById('contact-form'),
+    submit = document.getElementById('submit'),
         email = document.getElementById('emobbail'),
         name = document.getElementById('nobbame'),
         emailTooltip = document.getElementById('email-tooltip'),
@@ -171,7 +172,7 @@
         formData = new FormData(contactForm);
 
     if (contactForm) {
-        contactForm.addEventListener('submit', (event) => {
+        submit.addEventListener('click', (event) => {
             event.preventDefault();
             event.stopPropagation();
 
@@ -195,13 +196,13 @@
                     }, 3000);
                     break;
                 case 'valid':
-                    submit();
+                    submitForm();
                     break;
             }
         });
     }
 
-    async function submit() {
+    async function submitForm() {
         try {
             const response = await fetch(endPoint, {
                 method: 'POST',
