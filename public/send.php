@@ -98,7 +98,8 @@ function something_went_south($error, $error_log, $error_file)
 }
 
 // set safe state or redirect
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($referrer, $dir_sender) !== false) {
+// if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($referrer, $dir_sender) !== false) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //sanitize text fields and validate email
     foreach ($_POST as $key => $value) {
         if (strpos($key, '[]') === false) {
