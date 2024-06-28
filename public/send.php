@@ -149,6 +149,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         something_went_south($error, $error_log, $error_file);
     }
 
+    // HONEYPOT TEST
+    if ($_POST['name'] || $_POST['email']) {
+        mail($to, 'Honeypot failure!', 'I cant get error logging to work, so this email happens when a bot is detected');
+    }
+
 } else {
     $error = 'Request not POST or referrer not from subdomain';
     something_went_south($error, $error_log, $error_file);
