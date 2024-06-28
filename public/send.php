@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //sanitize text fields and validate email
 
     // HONEYPOT TEST
-    if ($_POST["name"] || $_POST["email"]) {
+    if ($_POST['name'] || $_POST['email']) {
         mail($to, 'Honeypot failure!', 'I cant get error logging to work, so this email happens when a bot is detected', $headers);
         return true;
     }
@@ -116,8 +116,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    $name = $_POST["nobbame"];
-    $message = $_POST["message"];
+    $name = $_POST['nobbame'];
+    $message = $_POST['message'];
     $from = 'info@greenvision.media';
     $to = 'login@greenvision.media';
     $cc = 'green.servers.org@gmail.com';
