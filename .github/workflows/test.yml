@@ -1,6 +1,7 @@
-name: Publish
+name: Test
 on:
   workflow_dispatch:
+  push:
 jobs:
   gvm-deploy:
     name: 🎉 Deploy
@@ -12,8 +13,8 @@ jobs:
     - name: 📩 Deploy to custom domain
       uses: SamKirkland/FTP-Deploy-Action@4.3.1
       with:
-        server: tajdehart.com 
-        username: 
-        password: ${{secrets.TAJ_PASSWORD}}
-        server-dir: tajdehart.com/public_html/form/
+        server: tools.greenvisionmedia.net  
+        username: tools@greenvisionmedia.net
+        password: ${{secrets.FTP_PASSWORD}}
+        server-dir: tools.greenvisionmedia.net/public_html/honeypot/
         local-dir: public/
