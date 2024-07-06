@@ -12,8 +12,8 @@ jobs:
     - name: 📩 Deploy to custom domain
       uses: SamKirkland/FTP-Deploy-Action@4.3.1
       with:
-        server: tajdehart.com 
+        server: greenvision.media
         username: 
         password: ${{secrets.TAJ_PASSWORD}}
-        server-dir: tajdehart.com/public_html/form/
+        server-dir: PLACEHOLDER
         local-dir: public/
