@@ -146,6 +146,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($referrer, $dir_sender) !== 
     if (!empty($hp_name) || !empty($req[$hp_email])) {
         mail($to, 'Honeypot failure!', 'Fly in the pot...', $headers);
         $is_spammer = true;
+        $error = 'Fly in the pot...';        
+        something_went_south($error, $error_log, $error_file);
     }
 
     // Send email
